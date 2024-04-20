@@ -1,0 +1,115 @@
+﻿@using Forcast.Models.Views
+@model IEnumerable<MaterialMasterVM>
+
+
+@{
+    ViewData["Title"] = "Material Master";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div class="container">
+    <h2>Material Master</h2>
+    <hr />
+
+    <!-- Upload File Form -->
+    <form id="uploadForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="file">Upload File:</label>
+            <input type="file" class="form-control-file" id="file" name="file">
+        </div>
+        <button type="button" class="btn btn-primary" id="uploadButton">Upload</button>
+    </form>
+
+    <hr />
+
+    <!-- Export to Excel Button -->
+    <!-- Export to Excel Button -->
+    <a href="https://localhost:7083/api/MaterialMaster/ExportFile" class="btn btn-success" download>Export to Excel</a>
+
+    <hr />
+
+    <!-- Material Master Table -->
+    <h3>Material Master List</h3>
+    <table id="materialTable" class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>DpName</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be dynamically populated here -->
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#" onclick="changePage('prev')">Previous</a></li>
+            <!-- Pagination numbers are dynamically inserted here -->
+            <li class="page-item"><a class="page-link" href="#" onclick="changePage('next')">Next</a></li>
+        </ul>
+    </nav>
+
+    <!-- Add New Material Form -->
+    <hr />
+    <h3>Add New Material</h3>
+    <form id="addForm" method="post">
+        <div class="form-group">
+            <label for="name">Material:</label>
+            <input type="text" class="form-control" id="material" name="Material">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" class="form-control" id="description" name="Description">
+        </div>
+        <div class="form-group">
+            <label for="dpName">DpName:</label>
+            <input type="text" class="form-control" id="dpName" name="DpName">
+        </div>
+        <button type="button" class="btn btn-primary" id="addMaterialButton">Add Material</button>
+    </form>
+
+
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Material</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="form-group">
+                            <label for="editId">Id:</label>
+                            <input type="text" class="form-control" id="editId" name="Id" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="editMaterial">Material:</label>
+                            <input type="text" class="form-control" id="editMaterial" name="Material">
+                        </div>
+                        <div class="form-group">
+                            <label for="editDescription">Description:</label>
+                            <input type="text" class="form-control" id="editDescription" name="Description">
+                        </div>
+                        <div class="form-group">
+                            <label for="editDpName">DpName:</label>
+                            <input type="text" class="form-control" id="editDpName" name="DpName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="saveButton">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section scripts {
+        <script src="~/js/MaterialMaster/MaterialMaster.js"></script>
+    }
+
+</div>
+
